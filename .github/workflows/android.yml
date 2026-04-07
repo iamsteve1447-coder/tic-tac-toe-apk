@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install system dependencies
+      - name: Install dependencies
         run: |
           sudo apt update
           sudo apt install -y python3-pip git zip unzip openjdk-17-jdk
@@ -29,6 +29,10 @@ jobs:
           sed -i 's/title = My Application/title = TicTacToe/g' buildozer.spec
           sed -i 's/package.name = myapp/package.name = tictactoe/g' buildozer.spec
           sed -i 's/requirements = python3/requirements = python3,kivy/g' buildozer.spec
+
+      - name: Accept Android licenses
+        run: |
+          yes | buildozer android accept_sdk_license
 
       - name: Build APK
         run: |
